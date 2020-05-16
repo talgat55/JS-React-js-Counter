@@ -106,15 +106,14 @@ class IntervalComponent extends React.Component {
 
     changeInterval(value){
         this.props.changeInterval(value);
-        if(this.state.currentInterval === 1 && value === -1 ){
-
-        }else{
+        if(this.state.currentInterval !== 1 || value !== -1 ){
             this.setState( (prevState) =>{
                 return {
                     currentInterval: prevState.currentInterval +value
                 }
             });
         }
+
     };
 
 
