@@ -85,9 +85,9 @@ const reducer = (state, action) => {
     switch (action.type) {
         case CHANGE_INTERVAL:
 
-            // if decrement and state 0
-            if(state === 0  && action.payload === -1){
-                return  state = 0;
+            // if decrement and state 1
+            if(state === 1  && action.payload === -1){
+                return  state = 1;
             }
 
             return  state += action.payload;
@@ -100,13 +100,31 @@ const reducer = (state, action) => {
 // components
 
 class IntervalComponent extends React.Component {
+    state = {
+        currentInterval: this.props.currentInterval
+    };
+
+    changeInterval(value){
+        this.props.changeInterval(value);
+        if(this.state.currentInterval === 1 && value === -1 ){
+
+        }else{
+            this.setState( (prevState) =>{
+                return {
+                    currentInterval: prevState.currentInterval +value
+                }
+            });
+        }
+    };
+
+
     render() {
         return (
             <div>
-                <span>Интервал обновления секундомера: {this.props.currentInterval} сек.</span>
+                <span>Интервал обновления секундомера: {this.state.currentInterval} сек.</span>
                 <span>
-                      <button onClick={() => this.props.changeInterval(-1)}>-</button>
-                      <button onClick={() => this.props.changeInterval(1)}>+</button>
+                      <button onClick={ () => this.changeInterval(-1)} >-</button>
+                      <button onClick={() => this.changeInterval(1)}>+</button>
                 </span>
             </div>
         )
